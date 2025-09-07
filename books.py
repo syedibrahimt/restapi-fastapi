@@ -47,3 +47,10 @@ def update_book(book = Body()):
             BOOKS[i] = book
             return BOOKS
     return f"No Book found with id {book.get('id')}"
+
+@app.delete("/books/delete/{book_id}")
+def delete_book_by_id(book_id: int):
+    for index, book in enumerate(BOOKS):
+        if book.get("id") == book_id:
+            BOOKS.pop(index)
+    return BOOKS
