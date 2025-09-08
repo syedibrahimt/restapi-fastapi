@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
-from Book import Book
+from models.Book import Book
+from pydantic_models.BookRequest import BookRequest
 
 app = FastAPI()
 
@@ -18,3 +19,7 @@ def test():
 @app.get("/books")
 def get_all_books():
     return BOOK_LIST
+
+@app.post("/books/create")
+def create_book(new_book: BookRequest):
+    BOOK_LIST.append(Book(**new_book.model_dump()))
