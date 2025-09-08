@@ -41,3 +41,18 @@ def get_books_by_rating(book_rating: int):
         if book.rating == book_rating:
             books_to_return.append(book)
     return books_to_return
+
+@app.put('/book/')
+def update_book(book: BookRequest):
+    for i, b in enumerate(BOOK_LIST):
+        if b.id == book.id:
+            BOOK_LIST[i] = book
+            break
+    return BOOK_LIST
+
+@app.delete("/book/")
+def delete_book_by_id(book_id: int):
+    for i, b in enumerate(BOOK_LIST):
+        if b.id == book_id:
+            BOOK_LIST.pop(i)
+    return BOOK_LIST
