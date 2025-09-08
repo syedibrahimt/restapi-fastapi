@@ -10,6 +10,7 @@ class BookRequest(BaseModel):
     rating: int = Field(gt=0, lt=6)
     price: int = Field(gt=0, lt=1000)
     description: str = Field(min_length=10)
+    published_date:int = Field(min_length=4, max_length=4, description="Published year of the book")
 
     model_config = {
         "json_schema_extra": {

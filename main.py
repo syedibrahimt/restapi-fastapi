@@ -7,11 +7,12 @@ from utils.BookUtils import get_book_with_id
 app = FastAPI()
 
 BOOK_LIST = [
-    Book(1, "Learn Java", "Java Author", 5, 500, "this is the description of the java book"),
-    Book(2, "Learn Python", "Java Author", 5, 500, "this is the description of the java book"),
-    Book(3, "Learn JavaScript", "Java Author", 4, 500, "this is the description of the java book"),
-    Book(4, "Learn Rust", "Java Author", 4, 500, "this is the description of the java book"),
-    Book(5, "Learn C++", "Java Author", 3, 400, "this is the description of the java book"),
+    Book(1, "Learn Java", "Java Author", 5, 500, "this is the description of the java book", 2012),
+    Book(2, "Learn Python", "Java Author", 5, 500, "this is the description of the java book", 2000),
+    Book(3, "Learn JavaScript", "Java Author", 4, 500, "this is the description of the java book", 1996),
+    Book(4, "Learn Rust", "Java Author", 4, 500, "this is the description of the java book", 2020),
+    Book(5, "Learn C++", "Java Author", 3, 400, "this is the description of the java book", 2025),
+    Book(5, "Learn C", "C Author", 3, 400, "this is the description of the C book", 2012),
 ]
 @app.get("/")
 def test():
@@ -56,3 +57,11 @@ def delete_book_by_id(book_id: int):
         if b.id == book_id:
             BOOK_LIST.pop(i)
     return BOOK_LIST
+
+@app.get("/books/")
+def get_books_by_published_date(published_date: int):
+    books_in_year = []
+    for book in BOOK_LIST:
+        if book.published_date == published_date:
+            books_in_year.append(book)
+    return  books_in_year
