@@ -25,3 +25,19 @@ def get_all_books():
 def create_book(new_book: BookRequest):
     book = get_book_with_id(Book(**new_book.model_dump()), BOOK_LIST)
     BOOK_LIST.append(book)
+    return BOOK_LIST
+
+@app.get("/book/{book_id}")
+def get_book_by_id(book_id: int):
+    for book in BOOK_LIST:
+        if book.id == book_id:
+            return book
+    return None
+
+@app.get("/book/")
+def get_books_by_rating(book_rating: int):
+    books_to_return = []
+    for book in BOOK_LIST:
+        if book.rating == book_rating:
+            books_to_return.append(book)
+    return books_to_return
