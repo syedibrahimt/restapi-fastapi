@@ -2,6 +2,7 @@ from fastapi import FastAPI
 
 from models.Book import Book
 from pydantic_models.BookRequest import BookRequest
+from utils.BookUtils import get_book_with_id
 
 app = FastAPI()
 
@@ -22,4 +23,5 @@ def get_all_books():
 
 @app.post("/books/create")
 def create_book(new_book: BookRequest):
-    BOOK_LIST.append(Book(**new_book.model_dump()))
+    book = get_book_with_id(Book(**new_book.model_dump()), BOOK_LIST)
+    BOOK_LIST.append(book)
